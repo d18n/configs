@@ -25,11 +25,11 @@ module-margin = 1
 font-0 = "Noto Sans Mono:size=10;1"
 font-1 = "Noto Sans Mono:size=10;1"
 font-2 = "Noto Sans Symbols:size=10;1"
-font-3 = "Noto Sans Symbols2:size=10;1"
+font-3 = "Noto Sans CJK:size=10;1"
 
 modules-left = date ewmh xwindow
-modules-center =
-modules-right = github eth1 eth2 wlan cpu battery
+modules-center = spotify
+modules-right = github xkeyboard wlan cpu battery
 
 tray-position = right
 tray-padding = 2
@@ -38,15 +38,42 @@ tray-maxsize = 24
 [global/wm]
 margin-top = 0
 
+[module/xkeyboard]
+type = internal/xkeyboard
+
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = " "
+exec = python ~/source/repos/github/polybar-spotify/spotify_status.py -f '{artist}: {song}'
+format-underline = #1db954
+
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:30:...%
 
 [module/bspwm]
 type = internal/bspwm
-pin-workspaces = false
-enable-click = false
+pin-workspaces = true
+inline-mode = false
+enable-click = true
 enable-scroll = false
+reverse-scroll = false
+fuzzy-match = false
+
+ws-icon-0 = I;
+ws-icon-1 = II;
+ws-icon-2 = III;
+ws-icon-3 = IV;
+ws-icon-4 = V;
+ws-icon-5 = VI;
+ws-icon-6 = VII;
+ws-icon-7 = VIII;
+ws-icon-8 = IX;
+ws-icon-9 = X;
+
+format = <label-state> <label-mode>
+label-monitor = %name%
 
 label-focused = " %name% "
 label-focused-underline = #fba922
@@ -93,30 +120,6 @@ ramp-signal-2 = 🌥
 ramp-signal-3 = 🌤
 ramp-signal-4 = 🌣
 
-[module/eth2]
-type = internal/network
-interface = enp12s0u1
-interval = 3.0
-
-format-connected-underline = #115511
-format-connected-prefix = "🖧 "
-format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
-
-format-disconnected =
-
-[module/eth1]
-type = internal/network
-interface = enp0s31f6
-interval = 3.0
-
-format-connected-underline = #55aa55
-format-connected-prefix = "🖧 "
-format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
-
-format-disconnected =
-
 [module/date]
 type = internal/date
 interval = 5
@@ -145,4 +148,20 @@ interval = 10
 [settings]
 screenchange-reload = true
 
-; vim:ft=dosini
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC0
+full-at = 99
+
+# charging
+format-charging = <label-charging>
+format-charging-underline = #0000ff
+label-charging = CHR %percentage%%
+
+# full
+format-full-prefix = "FULL"
+format-full-underline = #33cc33
+format-full-prefix-foreground = #707880
+label-full = FULL
+format-full = <label-full>
