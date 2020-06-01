@@ -1,6 +1,7 @@
 #! /bin/sh
 
 sxhkd &
+nitrogen --restore &
 [ -x ~/.config/polybar/launch.sh ] && ~/.config/polybar/launch.sh &
 bspc monitor -d I II III IV V VI VII VIII IX X
 
@@ -21,3 +22,6 @@ bspc rule -a Screenkey manage=off
 bspc rule -a ulauncher focus=on
 bspc rule -a polybar border=off manage=off
 bspc rule -a firefox desktop='^1'
+
+picom &
+dunst &
